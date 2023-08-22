@@ -2,24 +2,24 @@
 #Set date as parameter
 DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 
-#Stopping mastodon processes
+#Stop mastodon server processes
     systemctl stop 'mastodon-*'
 
-#Generating a database dump backup
+#Dump database to backup file
     su - mastodon -c "cd /home/mastodon/live && pg_dump -Fc mastodon_production > backup.dump"
 
-#Moving the database backup
+#Moving the backup file to backup target directory
     mv /home/mastodon/live/backup.dump /backup/db/backup-$DATE.dump
 
-#Copying important files
+#Copy other files
     cp /home/mastodon/live/.env.production /backup/.env.production
     cp /var/lib/redis/dump.rdb /backup/db/redis_dump-$DATE.rdb
     cp -r -f /etc/nginx/sites-available/ /backup/sites-available/ --recursive
 
-#Starting the mastodon processes
+#Starting server processes
     systemctl start 'mastodon-*'
 
-#Compress the database backup
+#Use Gzip to compress the backup file.
     gzip /backup/db/backup-$DATE.dump
 
 #Delete old backups
