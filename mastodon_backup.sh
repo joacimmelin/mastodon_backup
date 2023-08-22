@@ -10,6 +10,7 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 
 #Moving the database backup
     mv /home/mastodon/live/backup.dump /backup/db/backup-$DATE.dump
+
 #Copying important files
     cp /home/mastodon/live/.env.production /backup/.env.production
     cp /var/lib/redis/dump.rdb /backup/db/redis_dump-$DATE.rdb
@@ -17,6 +18,7 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 
 #Starting the mastodon processes
     systemctl start 'mastodon-*'
+
 #Compress the database backup
     gzip /backup/db/backup-$DATE.dump
 
