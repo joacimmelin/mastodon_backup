@@ -1,5 +1,7 @@
 #!/bin/bash
+#Set date as parameter
 DATE=$(date +"%Y-%m-%d_%H-%M-%S")
+
 #Stopping mastodon processes
     systemctl stop 'mastodon-*'
 
@@ -15,6 +17,9 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 
 #Starting the mastodon processes
     systemctl start 'mastodon-*'
-gzip /backup/db/backup-$DATE.dump
-find /backup/db -type f -name "*.gz" -mtime +7 -delete
-find /backup/db -type f -name "*.rdb" -mtime +7 -delete
+#Compress the database backup
+    gzip /backup/db/backup-$DATE.dump
+
+#Delete old backups
+    find /backup/db -type f -name "*.gz" -mtime +7 -delete
+    find /backup/db -type f -name "*.rdb" -mtime +7 -delete
