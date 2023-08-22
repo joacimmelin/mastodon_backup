@@ -14,7 +14,7 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 #Copying important files
     cp /home/mastodon/live/.env.production /backup/.env.production
     cp /var/lib/redis/dump.rdb /backup/db/redis_dump-$DATE.rdb
-    cp -r -f -v /etc/nginx/sites-available/ /backup/sites-available/ --recursive
+    cp -r -f /etc/nginx/sites-available/ /backup/sites-available/ --recursive
 
 #Starting the mastodon processes
     systemctl start 'mastodon-*'
