@@ -17,7 +17,7 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
     cp -r -f /etc/nginx/sites-available/ /backup/sites-available/ --recursive
 
 #Starting server processes
-    systemctl start 'mastodon-*'
+    systemctl start mastodon-streaming.service mastodon-web.service mastodon-sidekiq.service
 
 #Use Gzip to compress the backup file.
     gzip /backup/db/backup-$DATE.dump
