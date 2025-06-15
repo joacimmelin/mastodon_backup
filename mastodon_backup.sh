@@ -27,5 +27,5 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
     gzip /backup/db/backup-$DATE.dump
 
 #Delete old backups
-    find /backup/db -type f -name "*.gz" -mtime +7 -delete
+    find /backup/db -type f -name "*.dump" -mtime +7 -delete
     find /backup/db -type f -name "*.rdb" -mtime +7 -delete
