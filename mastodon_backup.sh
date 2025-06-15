@@ -11,11 +11,14 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
 
 #Copy other files
     cp /home/mastodon/live/.env.production /backup/.env.production
+    cp -r -f /etc/nginx/sites-available/ /backup/sites-available/ --recursive
+
+#Backup Redis database
     /usr/bin/redis-cli SAVE
     systemctl stop redis-server.service
     cp /var/lib/redis/dump.rdb /backup/db/redis_dump-$DATE.rdb
     systemctl start redis-server.service
-    cp -r -f /etc/nginx/sites-available/ /backup/sites-available/ --recursive
+    
 
 #Starting server processes
     systemctl start mastodon-streaming.service mastodon-web.service mastodon-sidekiq.service
