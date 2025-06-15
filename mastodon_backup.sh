@@ -6,7 +6,8 @@ DATE=$(date +"%Y-%m-%d_%H-%M-%S")
     systemctl stop 'mastodon-*'
 
 #Dump database to backup file
-   su - mastodon -c "cd /home/mastodon/live && pg_dump -Fc mastodon_production > /backup/db/backup-$DATE.dump"
+   su - mastodon -c "cd /home/mastodon/live && pg_dump -Fc mastodon_production > /home/mastodon/backup-$DATE.dump"
+   mv /home/mastodon/backup-*.dump /backup/db/
 
 #Copy other files
     cp /home/mastodon/live/.env.production /backup/.env.production
